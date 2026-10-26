@@ -105,7 +105,3 @@ branch protection. See [development](docs/development.md).
 
 FounDaTionZy is released under the [MIT License](LICENSE). Keep its notice with
 reused template material; choose the application's own licensing deliberately.
-
-The foundation was distilled from local inspections of Money Tracker and
-Devflow Orchestrator. [Provenance](docs/guides/provenance.md) records what was
-generalized and which project-specific choices were deliberately left out.
