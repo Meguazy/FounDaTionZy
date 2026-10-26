@@ -20,6 +20,9 @@ agents to this map; it does not duplicate the knowledge below.
 
 ## Understand and apply the standard
 
+Start with the [guide index](guides/README.md) for a summary of each guide and
+recommended paths for new projects, existing repositories, and ongoing work.
+
 - [How the foundation works](guides/how-it-works.md): the complete feedback loop.
 - [Bootstrap a project](guides/bootstrap.md): detailed owner brief and agent outputs.
 - [Conventions and rationale](guides/conventions-and-rationale.md): choices and tradeoffs.
