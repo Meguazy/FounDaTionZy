@@ -74,6 +74,53 @@ Language-specific docstrings, source layout, logging implementation, coverage
 policies, and cross-platform support belong to the initialized project's
 accepted choices. Planned commands must remain visibly planned.
 
+## Project test strategy
+
+During initialization or adoption, the agent proposes a concise strategy based
+on requirements, architecture, risks, and existing tests. Explain the recommended
+approach, meaningful alternatives, costs, and evidence limits. Suite layout,
+tools, and thresholds follow the project; the foundation supplies the outline.
+
+TBD(project): Replace this outline with the project's strategy and linked
+decisions. Keep commands planned until they can be verified.
+
+1. **Behavior and risk:** identify critical journeys, invariants, failure/recovery
+   paths, and observable assertions. Include regressions for relevant defects.
+2. **Verification boundaries:** select the levels needed, such as unit, contract,
+   real integration, E2E, or model evaluations. State actual dependencies, where
+   fakes are appropriate, and what each result can establish.
+3. **Organization and reliability:** follow the language/ecosystem's conventions;
+   describe test placement, fixtures, isolation, deterministic inputs, cleanup,
+   and useful failure diagnostics. Keep assertions focused on behavior.
+4. **Execution and evidence:** document verified commands, local/CI placement,
+   required environments, revision identity, outcomes, and skipped/not-run gates.
+5. **Acceptance and tradeoffs:** propose required checks and accepted gaps.
+   Choose coverage targets or advanced techniques only when justified by risk
+   and maintenance cost; no universal directory tree or numeric threshold applies.
+
+The owner decides material guarantees, accepted risks, and required gates.
+The agent handles reversible details within existing authorization. Record
+agreed choices here and unresolved items in the
+[OD register](open-decisions.md) with a deadline before they are relied on.
+Use an ADR when the choice has significant architectural consequences.
+
+### Test-first behavior changes
+
+Use this default sequence within the agreed strategy:
+
+1. **RED:** add a focused test for the intended behavior and run it against the
+   unchanged implementation. Verify that it fails for the expected missing or
+   incorrect behavior; infrastructure/setup errors do not establish RED.
+2. **GREEN:** implement the behavior and run the focused test and affected checks.
+3. **REFACTOR:** improve the design while keeping the relevant checks green.
+
+A pure refactor starts from passing tests. If a new test already passes because
+the behavior exists, retain useful regression coverage and record that fact.
+Documentation-only changes use structural checks and review. When test-first is
+impractical, record the reason and alternative validation in the change evidence;
+resolve any resulting change to accepted guarantees or gates with the owner.
+Preserve earlier authorization and avoid seeking approval for every test detail.
+
 ## Before publishing
 
 Inspect the entire diff, run applicable checks, review private material, and

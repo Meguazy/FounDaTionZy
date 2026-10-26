@@ -52,6 +52,11 @@ Existing tests that use fakes remain useful within that boundary. Rename or
 qualify their evidence claims; do not call them real-service integration unless
 they exercise the relevant real protocol and service.
 
+Propose the [project test strategy](../development.md#project-test-strategy)
+from existing tests and accepted guarantees. Preserve useful conventions and
+justify changes; resolve material tradeoffs with the owner. Apply the test-first
+default to subsequent behavior changes with the documented exceptions.
+
 ## Introduce process incrementally
 
 Adopt the reading order, status vocabulary, PR template, and documentation

@@ -82,10 +82,11 @@ Name the boundary explicitly and schedule real-provider acceptance separately
 when it is required. This resolves a difference between the source projects
 without weakening either one's claims.
 
-Test-first development is useful for behavior changes. Its failure should
-demonstrate the missing behavior, then turn green through implementation and
-remain green through refactoring. Documentation-only work needs structural and
-human review rather than invented application tests.
+The [project test strategy](../development.md#project-test-strategy) turns these
+principles into choices the agent proposes during initialization/adoption and
+resolves with the owner where material. It defines the test-first default and
+exceptions. Its outline stays stack independent: suite layout, tools, thresholds,
+and optional techniques follow actual risks and ecosystem conventions.
 
 For model/prompt/routing/tool changes, define evaluated cases, quality gates,
 failure analysis, configuration identity, and promotion evidence. Not every

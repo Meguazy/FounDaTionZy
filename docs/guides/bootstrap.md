@@ -109,6 +109,10 @@ Populate development guidance with commands verified against the actual
 checkout. Before the scaffold exists, describe the intended checks as planned
 and leave command examples non-executable.
 
+Propose the [project test strategy](../development.md#project-test-strategy)
+using its outline and test-first default. Explain risk, options, and limits;
+resolve material choices with the owner and record pending decisions explicitly.
+
 Use [workflow documentation](../workflows/README.md) only for meaningful
 behavioral contracts. A machine-readable state model is optional; it is useful
 for a complex lifecycle, not a mandatory application engine or an executable
@@ -144,6 +148,8 @@ from a merge or from the request to initialize the repository.
 - Consequential choices have indexed ADRs with accurate status.
 - Unknowns have owners, `Decide by` boundaries, and links to affected steps.
 - The roadmap has useful outcomes and verifiable step criteria.
+- The test strategy records proposed/agreed choices, boundaries, the test-first
+  approach, and any decisions due before implementation.
 - Development and operations distinguish current capabilities from plans.
 - Agent instructions point to the canonical sources and contain no stale status.
 - New documents are discoverable through indexes; relative links work.
