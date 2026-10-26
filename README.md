@@ -72,6 +72,7 @@ The loop matters: documentation guides implementation, and verified
 implementation updates documentation. A plan, a merge, a passing test, and owner
 acceptance each establish different facts.
 
+- [Guide index and recommended reading paths](docs/guides/README.md)
 - [How everything works and why](docs/guides/how-it-works.md)
 - [Conventions and their rationale](docs/guides/conventions-and-rationale.md)
 - [Agent lifecycle, handoffs, and review](docs/guides/agent-workflow.md)
