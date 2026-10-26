@@ -68,9 +68,15 @@ For an existing project, also follow [the adoption guide](docs/guides/adoption.m
 - Test observable behavior and failure paths using real production code.
   Fakes belong at explicit boundaries; real integration claims require the real
   service/protocol. Describe the dependencies used by every E2E result.
-- Use test-first development for behavior changes where practical. Confirm that
-  the initial failure is meaningful, then make it pass and preserve it during
-  refactoring. Do not manufacture test counts or apply RED to a prose edit.
+- During initialization/adoption, propose a risk-based
+  [project test strategy](docs/development.md#project-test-strategy), explain
+  tradeoffs, and resolve material choices with the owner. Record agreed choices
+  and pending decisions there; handle reversible details within granted autonomy.
+- Default to test-first for behavior changes: verify a meaningful RED failure,
+  implement GREEN, then REFACTOR while preserving passing checks. Pure refactors
+  start from green tests; prose edits use structural review. Record deviations
+  and alternative validation without weakening accepted gates. Never invent
+  test results or counts.
 - Add evaluation gates when changing nondeterministic model/prompt/tool behavior.
   A few attractive examples do not establish a quality threshold.
 - Keep experiment code under `experiments/EXP-NNN/`, with shared probe helpers
