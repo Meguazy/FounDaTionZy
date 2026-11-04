@@ -10,7 +10,9 @@ Inventory source, manifests/lockfiles, migrations, tests, CI, deployment
 configuration, runbooks, agent instructions, hooks, and repository settings
 that are visible through authorized access.
 
-Read existing documentation and compare its claims with the checkout. Record
+Use the initialization/adoption path in
+[the reading protocol](../README.md#required-reading-order). Read existing
+documentation and compare its claims with the checkout. Record
 the inspected revision and meaningful uncommitted differences. Use read-only
 inspection first; do not run account-connected or destructive operations merely
 to discover whether they work.
@@ -28,6 +30,19 @@ Separate:
 Move or consolidate documentation deliberately. Preserve stable IDs and inbound
 references where possible. Add the documentation map and define which file owns
 each kind of fact. Keep the root README focused on orientation and verified use.
+
+Add `Required context` references to the adopted step and handoff records using
+their [templates](../templates/README.md). Link the canonical sections, stable
+IDs, code/tests and gates needed for each outcome, grouping large steps by
+increment. Discover missing dependencies during inspection before relying on a
+bounded reading path; the map remains navigation rather than an authority source.
+
+Separate current claims from accumulated session narratives using
+[current state and history](current-state-and-history.md). Preserve dated evidence,
+binding decisions, IDs and inbound references while extracting detail. Create
+an indexed [handoff](../handoffs/README.md) when work will continue, recording the
+actual branch/tree, pending work and evidence applicability; do not fabricate
+checkpoints or past checks for sessions that were never recorded.
 
 Use arc42 to explain the actual system and clearly label desired changes.
 Document current dependencies and data authority before proposing new modules.
@@ -59,7 +74,7 @@ default to subsequent behavior changes with the documented exceptions.
 
 ## Introduce process incrementally
 
-Adopt the reading order, status vocabulary, PR template, and documentation
+Adopt the reading protocol, status vocabulary, PR template, and documentation
 checker first. Adapt application check commands to the real stack.
 
 Add provider permissions, local hooks, required checks, branch rules, and

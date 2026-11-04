@@ -19,6 +19,11 @@ Retain failures and inconclusive results. A correction creates a new run record,
 not a rewritten historical success. Passing an experiment supplies evidence;
 owner acceptance and ADR promotion remain separate decisions.
 
+When repeated runs make a record unwieldy, keep its question, gate and outcome
+summary in the indexed experiment and link separate identified run records from
+it. Preserve every run's source/configuration identity, failures and limitations,
+following [current state and history](../guides/current-state-and-history.md).
+
 For models/prompts/tools, define representative datasets, regression cases,
 quality thresholds, human evaluation where needed, and a recorded promotion
 decision. Adopt this only if the application uses such behavior.

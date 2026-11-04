@@ -46,6 +46,17 @@ requirements, actual OD/ADR acceptance, application behavior, secrets, provider
 capabilities, live repository settings, or CI enforcement. Review those directly.
 A clean result does not make an application ready for release.
 
+For `Required context` maps, the checker verifies supported links and anchors;
+it does not assess completeness, correct reading-path selection, or whether an
+agent followed the protocol. Review those against the requested outcome and its
+dependencies. Context savings and reliable continuation require usage evidence.
+
+The checker follows links to handoffs and historical records, but does not verify
+that a handoff is current, its tree identity matches the checkout, an authorization
+still applies, or an old result supports today's claim. Review those using the
+[resume checks](guides/agent-workflow.md#resume-from-a-handoff) and
+[history guide](guides/current-state-and-history.md).
+
 ## Hosted CI
 
 [The documentation workflow](../.github/workflows/docs.yml) runs the checker

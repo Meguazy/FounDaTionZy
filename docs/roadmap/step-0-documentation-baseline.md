@@ -7,6 +7,13 @@ Status: planned
 Turn the owner's detailed application description into an honest, navigable,
 reviewable product and delivery baseline.
 
+## Required context
+
+Follow the initialization path in
+[the reading protocol](../README.md#required-reading-order) and
+[the bootstrap guide](../guides/bootstrap.md) to reconstruct the full baseline.
+The documentation map links all canonical sources to populate and reconcile.
+
 ## Prerequisites and start decisions
 
 An application brief and authorized documentation-initialization scope.
@@ -19,7 +26,8 @@ No application technology choice is supplied by this template.
 - All twelve arc42 sections at the depth the application needs.
 - Indexed ADRs with accurate decision/implementation status.
 - Open questions with owners and explicit `Decide by` boundaries.
-- A sequenced roadmap with per-step prerequisites and observable exit criteria.
+- A sequenced roadmap with per-step context maps, prerequisites and observable
+  exit criteria.
 - Project-specific agent constraints, development guidance, relevant workflow
   contracts, experiment gates, and operational needs.
 
@@ -40,8 +48,9 @@ and acceptance of every proposed choice are not implied by documentation setup.
 - The owner's requirements and exceptions are preserved without invented scope.
 - Product, architecture, decisions, workflow, and roadmap agree.
 - Proposed choices remain visibly proposed unless actually accepted.
-- Future steps have useful outcomes, non-goals, observable criteria, and evidence
-  requirements; decisions due before the next step are identified.
+- Future steps have useful outcomes, non-goals, observable criteria, evidence
+  requirements and canonical context references; decisions due before the next
+  step are identified.
 - Project fields are populated, explicitly excluded, or replaced by linked ODs.
 - New docs are indexed; structural checks and whitespace validation pass.
 - The owner has reviewed and accepted this baseline with any stated limits.

@@ -190,6 +190,12 @@ When sources disagree, inspect the code and evidence and resolve the canonical
 documents. Do not pick whichever sentence permits the easiest next step.
 [Adoption](adoption.md) explains this process for existing repositories.
 
+Keep current statements readable as they evolve, using
+[linked historical records](current-state-and-history.md) for dated attempts and
+evidence. An indexed [handoff](../handoffs/README.md) carries the worktree,
+pending work and evidence applicability to the next session; its checkpoint
+does not replace canonical facts or owner authority.
+
 The cost is deliberate maintenance. The benefit is that a new contributor or
 agent can reconstruct the project's intent and current state without access to
 the original conversation.
