@@ -41,6 +41,7 @@ ask about important gaps, and separate confirmed requirements from proposals.
 Populate the product baseline, user journeys, glossary, all twelve arc42
 sections, relevant ADRs, open decisions, and a sequenced roadmap with per-step
 prerequisites, deliverables, non-goals, exit criteria, and evidence requirements.
+Add Required context maps linking the canonical sources needed for each step.
 Adapt the agent instructions and development/operations guidance to the project.
 Do not invent working commands, implementation evidence, or my approval.
 Give me a reviewable baseline and identify the decisions needed for the next
@@ -76,8 +77,9 @@ acceptance each establish different facts.
 - [How everything works and why](docs/guides/how-it-works.md)
 - [Conventions and their rationale](docs/guides/conventions-and-rationale.md)
 - [Agent lifecycle, handoffs, and review](docs/guides/agent-workflow.md)
+- [Current state and historical records](docs/guides/current-state-and-history.md)
 - [Adopting the template in an existing project](docs/guides/adoption.md)
-- [Documentation map and reading order](docs/README.md)
+- [Documentation map and activity-specific reading paths](docs/README.md)
 - [Contributing and Git workflow](CONTRIBUTING.md)
 
 ## What you get
@@ -89,6 +91,7 @@ acceptance each establish different facts.
 | `docs/arc42/` and indexed ADRs | Architecture, alternatives, consequences, and decision status. |
 | `docs/roadmap.md` and step documents | Delivery order, active scope, gates, and acceptance evidence. |
 | `docs/open-decisions.md` | Questions with owners and explicit decision deadlines. |
+| `docs/handoffs/` | Indexed continuation checkpoints, pending work and evidence applicability. |
 | Experiments, workflow, development, and operations templates | Separate uncertain feasibility, behavioral contracts, developer commands, and runtime procedures. |
 | PR template, formatting defaults, and documentation CI | Reviewable changes and repeatable structural checks. |
 

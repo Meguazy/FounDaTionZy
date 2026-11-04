@@ -13,5 +13,12 @@ acceptance or results.
 - [Operations runbook](../operations/runbook-template.md)
 
 Store completed records beside the concern they describe and link them from
-the relevant index. A handoff should link current roadmap status, not maintain
-another authoritative status register.
+the relevant index, following [current state and history](../guides/current-state-and-history.md).
+For handoffs, use the [handoff index](../handoffs/README.md) and
+[write/resume protocol](../guides/agent-workflow.md#durable-handoff). A checkpoint
+links current roadmap status and captures evidence applicability, pending work
+and the next authorized action; it does not maintain another authority source.
+
+Step and handoff templates include `Required context` maps. Use them to link
+canonical sections and stable IDs for the requested outcome, following
+[the reading protocol](../README.md#required-reading-order).

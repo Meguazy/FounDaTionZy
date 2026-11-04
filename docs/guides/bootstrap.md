@@ -35,7 +35,9 @@ customer exports, or provider sessions in a public project brief.
 
 ### 1. Inspect and preserve
 
-Read the repository instructions and documentation map. If code already exists,
+Use the initialization/adoption path in
+[the reading protocol](../README.md#required-reading-order) to reconstruct the
+full baseline. If code already exists,
 inspect manifests, source, tests, CI, migrations, and runbooks before making
 implementation claims. Follow [adoption](adoption.md) for that case.
 
@@ -92,7 +94,9 @@ the template does not prescribe their count or a language-specific sequence.
 
 Copy [the step template](../roadmap/step-template.md) into one file per real
 step. Set intent, scope, prerequisites, non-goals, deliverables, exit criteria,
-evidence requirements, and all start/exit decisions. Avoid fabricated dates.
+evidence requirements, and all start/exit decisions. Add `Required context`
+references to canonical sections and IDs, explaining why each source matters.
+Group large steps by increment. Avoid fabricated dates.
 
 Steps can be planned while later decisions stay open. Starting a step requires
 resolving its blocking start decisions. Closing one requires reviewing its exit
@@ -121,6 +125,12 @@ agent controller.
 Adapt operations to the actual runtime. A design-stage project must not expose
 imaginary installers, deployment scripts, services, backups, or health endpoints.
 
+Keep current documents concise and link detailed records using
+[current state and history](current-state-and-history.md). For continuing work,
+use the [handoff index](../handoffs/README.md) and
+[checkpoint protocol](agent-workflow.md#durable-handoff); leave the index empty
+until an actual project handoff is needed.
+
 ### 7. Validate and present the baseline
 
 Run the documentation checker and `git diff --check`. Inspect the diff for
@@ -148,10 +158,14 @@ from a merge or from the request to initialize the repository.
 - Consequential choices have indexed ADRs with accurate status.
 - Unknowns have owners, `Decide by` boundaries, and links to affected steps.
 - The roadmap has useful outcomes and verifiable step criteria.
+- Each step has a `Required context` map linking the sources needed for its
+  outcome; the common core and full boundary audits remain mandatory.
 - The test strategy records proposed/agreed choices, boundaries, the test-first
   approach, and any decisions due before implementation.
 - Development and operations distinguish current capabilities from plans.
 - Agent instructions point to the canonical sources and contain no stale status.
+- Current facts are distinguishable from dated work/evidence records; any
+  continuing-work handoff identifies its source inputs and check applicability.
 - New documents are discoverable through indexes; relative links work.
 - The owner has a reviewable package; remaining approvals are recorded as pending.
 

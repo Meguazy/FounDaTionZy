@@ -7,9 +7,22 @@ controls.
 
 ## Start or resume a session
 
-Read `AGENTS.md`, then the documentation map, product baseline, active step,
-architecture/ADRs, and relevant operational or experimental material. Inspect
-the current branch, uncommitted changes, actual code, and check definitions.
+Read `AGENTS.md` and establish the common core in
+[the reading protocol](../README.md#required-reading-order). Select its path for
+initialization/adoption, a bounded change, a cross-cutting change, or a step
+boundary. Inspect the current branch, uncommitted changes, actual code, and
+check definitions relevant to the requested outcome.
+
+For continuation, locate the matching current record in the
+[handoff index](../handoffs/README.md) and apply the
+[resume checks](#resume-from-a-handoff). The index is navigation; the roadmap
+and canonical records retain their authority.
+
+Use `Required context` in the selected step and current handoff to reach the
+canonical sections and stable IDs. For a large step, use the references for the
+current increment. Verify sources against the checkout, follow dependencies,
+and expand the reading as the protocol requires. A handoff's recorded revision
+helps identify changes; it does not establish current authority or valid evidence.
 
 Establish four facts before editing:
 
@@ -27,6 +40,10 @@ drift before using either status as permission.
 Connect the requested behavior to requirements and step criteria. Explain
 consequential implementation choices and the relevant validation boundary.
 Keep the plan proportional: a typo does not need an architecture exercise.
+
+Identify the applicable reading path and source references in the change plan
+or handoff. Maintain the context map when new dependencies are found or the
+requested scope changes. Keep requirements and decisions in their canonical homes.
 
 Check all ODs and proposed ADRs due at the step's start. Ask only for unresolved
 blocking decisions. If the owner already authorized an action within this
@@ -122,15 +139,47 @@ automatically start the next step.
 
 ## Durable handoff
 
-Before ending a session, update durable evidence and decisions in their
-canonical documents. Then provide a concise handoff using
-[the handoff template](../templates/handoff-template.md).
+Keep current facts and detailed work records organized using
+[current state and history](current-state-and-history.md). When work will
+continue or transfer, write a checkpoint using
+[the handoff template](../templates/handoff-template.md):
 
-A useful handoff names the branch/revision, completed outcome, uncommitted work,
-checks and limits, due decisions, and next authorized action. It should let a
-fresh session continue without rerunning every historical experiment or asking
-for already recorded approvals.
+1. Update changed requirements, accepted decisions, step assessments and other
+   canonical facts first. Link detailed validation/work records beside their
+   concern, including failures and limitations.
+2. Capture the branch, HEAD, relevant dirty/untracked inputs and identity scope.
+   Record completed and pending work, unrelated changes to preserve, uncertain
+   effects, evidence applicability and the next concrete authorized action.
+3. Write a uniquely named dated record in the [handoff index](../handoffs/README.md).
+   Advance its current pointer for the scope and retain the previous record in
+   history. When continuation ends, link its closure/stopping record instead of
+   leaving an apparently active pointer.
+4. Run applicable structural checks after writing the record and index. Declare
+   later edits and reassess any affected evidence; do not label an earlier checked
+   tree as the final tree when relevant inputs changed.
 
-Do not make the handoff another source of roadmap authority. Link to the step
-for its current status. Do not store raw conversations or secret-bearing logs
-just to make the handoff comprehensive.
+Keep the checkpoint concise by linking canonical facts and evidence. A completed
+bounded task needs no new active workstream merely to fill the index. Handoffs
+contain no raw conversations, credentials or provider sessions.
+
+### Resume from a handoff
+
+1. Match the workstream and branch to the checkout. Compare the recorded commit,
+   relevant patch/tree inputs and pending work with actual files; preserve
+   unrelated edits. A newer date or matching HEAD alone does not prove freshness.
+2. Establish the reading protocol's common core, verify context-map sources and
+   reconcile scope, decisions and step status with canonical records. At a step
+   boundary, audit the entire OD register and ADR index, regardless of the map.
+3. Classify required evidence as applicable within its recorded scope, requiring
+   a rerun, or unknown. Check changed code/configuration, dependencies, fixtures
+   and volatile external conditions. Retain failures as failures until new valid
+   evidence replaces them; rerun affected gates within authorization rather than
+   blindly repeating every historical check or carrying all old passes forward.
+4. Continue with the stated first action when its prerequisites and current
+   authorization still hold. Do not ask again for a recorded approval that covers
+   it. If direction changed, reconcile the affected canonical records; if a real
+   blocking decision or exhausted limit remains, request only that missing scope.
+
+A handoff summarizes a checkpoint; it cannot extend authority, resolve an OD,
+accept a step or prove external state. If it is missing or stale, reconstruct the
+affected context and repair the navigation before relying on it.

@@ -17,6 +17,7 @@ architecture, decisions, roadmap, and operational records.
 | [Adopt an existing project](adoption.md) | How to inspect code and existing docs, reconstruct the current state, reconcile contradictions, and integrate the conventions while preserving project history and decisions. | You already have a repository and want to introduce the standard. |
 | [Conventions and rationale](conventions-and-rationale.md) | The reasoning, costs, and limits behind document ownership, arc42, ADRs, status vocabulary, agent instructions, tests, Git, CI, and enforcement. | You want to understand a convention or assess a proposed change to it. |
 | [Agent workflow](agent-workflow.md) | How to start/resume a session, scope a change, implement, verify, review, publish a PR, close a step, and hand off work; when delegation is appropriate. | You are doing day-to-day development or continuing another session's work. |
+| [Current state and history](current-state-and-history.md) | How to keep canonical facts concise while preserving dated evidence, work records, stable references and decision history. | A document is becoming a session diary, or current claims are difficult to distinguish from old attempts. |
 | [Provenance](provenance.md) | Which Money Tracker and Devflow snapshots informed the foundation, which conventions were generalized, and how differences and documentation drift were handled. | You want to understand where the standard came from and the limits of that comparison. |
 
 ## Recommended reading paths
@@ -45,9 +46,12 @@ changes. Base current-state claims on inspected code and evidence.
 
 Follow [the agent workflow](agent-workflow.md), the project's
 [repository instructions](../../AGENTS.md), and the
-[documentation reading order](../README.md#required-reading-order).
+[documentation reading protocol](../README.md#required-reading-order).
 Use the [record templates](../templates/README.md) for decisions, experiments,
 evidence, exit reviews, and handoffs as needed.
+Find continuation checkpoints in the [handoff index](../handoffs/README.md).
+Use [current state and history](current-state-and-history.md) when detailed work
+records start obscuring the current contract or evidence assessment.
 
 ## Guides and project records
 

@@ -6,13 +6,12 @@ implementation, deployment, or owner acceptance is implied by its presence.
 
 ## Read before acting
 
-1. Read [the documentation map](docs/README.md) and the linked product baseline.
-2. Read [the roadmap](docs/roadmap.md), the active step, and its exit criteria.
-3. Read [arc42](docs/arc42/README.md), the
-   [ADR index](docs/arc42/decisions/README.md), and relevant decisions.
-4. Read [open decisions](docs/open-decisions.md) and any applicable behavioral
-   contracts under [workflows](docs/workflows/README.md).
-5. Read relevant experiments, [development](docs/development.md), and operations.
+Read this file, then follow [the reading protocol](docs/README.md#required-reading-order).
+Always establish its common core and select the reading path for the requested
+activity. Use the step's and handoff's `Required context` links to locate the
+applicable canonical sections; expand the reading when references are missing,
+stale, or reveal further dependencies. Context maps do not replace the common
+core, source verification, or the full decision audit at step boundaries.
 
 For initial setup, follow [the bootstrap guide](docs/guides/bootstrap.md).
 For an existing project, also follow [the adoption guide](docs/guides/adoption.md).
@@ -47,8 +46,9 @@ For an existing project, also follow [the adoption guide](docs/guides/adoption.m
 - Keep the root README an entry point. Put detailed knowledge under `docs/`
   and link every new document from its relevant index.
 - Keep requirements in the product baseline; architecture in arc42; decision
-  history in ADRs; sequence/status in the roadmap; step evidence in the step
-  document; executable commands in development/runbooks.
+  history in ADRs; sequence/status in the roadmap; current evidence assessments
+  in the step document, linking detailed records beside it; executable commands
+  in development/runbooks.
 - Separate decision status from implementation status. Never describe a proposal,
   placeholder, fake result, or planned command as working production behavior.
 - Preserve stable requirement, decision, experiment, and step identifiers.
@@ -59,6 +59,9 @@ For an existing project, also follow [the adoption guide](docs/guides/adoption.m
 - Keep provider entry files such as `CLAUDE.md` as pointers. Do not duplicate
   current roadmap status or maintain a second instruction manual there.
 - Resolve contradictory canonical statements before depending on them.
+- Keep current canonical facts separate from dated work/evidence records using
+  [the history guide](docs/guides/current-state-and-history.md). Preserve binding
+  decisions, stable references, failures and due gates when reorganizing detail.
 - Run the documented structural checks after documentation changes.
 
 ## Implementation and evidence
@@ -105,3 +108,5 @@ For an existing project, also follow [the adoption guide](docs/guides/adoption.m
 - End each work session with completed scope, changed files, exact validation,
   remaining decisions/limits, and the next authorized action. Record durable
   step evidence in the repository; chat history is not the project memory.
+- For continuing work, maintain an indexed checkpoint and verify it on resume
+  using [the handoff protocol](docs/guides/agent-workflow.md#durable-handoff).

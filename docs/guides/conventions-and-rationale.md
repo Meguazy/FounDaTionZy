@@ -14,6 +14,7 @@ detail. [Provenance](provenance.md) explains the source inspection and differenc
 | Twelve arc42 sections | Covers runtime, deployment, quality, and risks as well as components. | Scale content to the project; explain inapplicable sections. |
 | Indexed ADRs | Preserves alternatives, rationale, and consequences for future maintainers. | Record consequential choices; avoid an ADR for every local variable. |
 | Stable identifiers | Evidence and historical decisions keep their meaning after scheduling changes. | Never renumber old steps or reuse a superseded decision's ID. |
+| Current summaries with linked historical records | Readers can locate current facts without replaying a work diary. | Preserve failures, source identities, binding decisions and stable references when extracting detail. |
 | English technical documents | Keeps contracts, code, and architecture readable across tools and collaborators. | Owner discussion and application UI languages are separate decisions. |
 
 ## Status, scope, and decisions
@@ -42,9 +43,27 @@ rather than provider-specific hooks/settings because the baseline should remain
 portable and understandable. A tool-specific configuration can be introduced
 later with verified behavior, narrow permissions, and documented limits.
 
-Fresh sessions reconstruct context by following the same reading order.
-Handoffs report exact scope, evidence, decisions, and next actions. The original
-chat is useful context, but the repository is the durable reference.
+Fresh sessions follow [a common core and activity-specific reading paths](../README.md#required-reading-order).
+Global constraints and authority are always established; the depth of additional
+reading follows the requested outcome and its dependencies. Initialization and
+adoption reconstruct the full baseline, and step boundaries retain full decision
+audits. Historical reading follows current dependencies, with broader discovery
+when the affected boundary is unclear. Evaluate context savings and constraint
+recovery in each project before claiming an improvement.
+
+Step and handoff `Required context` maps link the canonical sections and IDs
+needed for an outcome, with a reason for each reference. They must be maintained
+as dependencies change and checked against current sources. They cannot replace
+the common core, establish permission, or prove their own completeness. Handoffs
+also report exact scope, evidence, decisions, and next actions. The original chat
+is useful context, but the repository is the durable reference.
+
+The [history guide](current-state-and-history.md) keeps current assessments
+separate from dated attempts. Indexed [handoffs](../handoffs/README.md) capture
+the branch/tree, unfinished work, applicable evidence and next authorized action.
+Their current pointer chooses a checkpoint; scope and check validity still need
+comparison with the checkout and canonical records. Reuse unaffected evidence
+within its scope and rerun affected gates, with unknown applicability made explicit.
 
 Start with one writing agent. Concurrency adds coordination costs and needs
 explicit delegation. Review independence depends on context and authority, not

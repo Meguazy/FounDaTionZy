@@ -7,6 +7,22 @@ Status: planned
 State the user/system outcome and why it follows the preceding work. Link
 requirements, quality scenarios, and relevant decisions.
 
+## Required context
+
+Link the canonical sources needed for this outcome: requirements/journeys,
+architecture sections and workflow contracts, binding ADRs and relevant ODs,
+code/tests, and development or operations gates. Use section links and stable
+IDs, and explain each dependency. For a large step, group references by increment.
+For a compound invariant, identify its trigger and link all clauses governing
+preserved/invalidated state and effects; avoid broad topic labels alone.
+
+| Concern / increment | Canonical source / section / IDs | Why needed |
+| --- | --- | --- |
+
+Apply [the reading protocol](../README.md#required-reading-order) as well.
+Maintain these references as scope and dependencies change. Missing references
+require discovery; this map does not narrow the common core or step-boundary audit.
+
 ## Prerequisites
 
 Name prior deliverables, evidence, dependencies, capabilities, and safe test
@@ -40,6 +56,11 @@ introduced during implementation.
 Link exact commands, revision/tree, environment, dependencies, outcomes/counts,
 sanitized artifacts, failures/skips/not-run gates, and limits. Assess each exit
 criterion explicitly.
+
+Keep the current criterion assessments, applicable evidence and remaining gaps
+concise here. Put detailed attempts and validation/work records beside the step
+and link them, following [current state and history](../guides/current-state-and-history.md).
+Preserve failed and unavailable required gates in the current assessment.
 
 ## Exit review
 
