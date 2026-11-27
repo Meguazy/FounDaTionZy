@@ -12,6 +12,7 @@ import html
 import os
 from pathlib import Path
 import re
+import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
@@ -44,17 +45,70 @@ INLINE_LINK = re.compile(r"!?\[[^\]\n]*\]\((<[^>\n]+>|[^\s)]+)(?:\s+[^)\n]*)?\)"
 DEFINITION = re.compile(r"^ {0,3}\[([^\]]+)\]:\s*(<[^>]+>|\S+)", re.MULTILINE)
 REFERENCE = re.compile(r"!?\[([^\]\n]+)\]\[([^\]\n]*)\]")
 
+MODULE_SECTIONS = (
+    "Purpose", "Global context", "Public API", "Dependencies", "Owned data",
+    "Invariants", "Related decisions", "Working on it",
+)
+MODULE_GLOBAL_LINKS = (
+    "docs/arc42/README.md", "docs/arc42/decisions/README.md", "docs/open-decisions.md",
+)
+GOVERNING_SOURCES = {
+    "plan.md": "docs/roadmap.md",
+    "spec.md": "docs/product/project-specification.md",
+    "design.md": "docs/arc42/README.md",
+    "glossary.md": "docs/product/glossary.md",
+    "testing.md": "docs/development.md",
+}
+COMPONENT_FIELD = re.compile(r"^- Affected components:[ \t]*(.*)$", re.MULTILINE)
+COMPONENT_VALUES = {"unset", "none", "cross-cutting"}
+STEP_DOCUMENT = re.compile(r"^docs/roadmap/step-[^/]+\.md$")
 
-def paths_under(root: Path) -> list[Path]:
-    """Return supported text files while excluding private/generated trees."""
+
+def is_text(path: Path) -> bool:
+    """Return whether the checker inspects this file name."""
+    return path.suffix in TEXT_SUFFIXES or path.name in TEXT_NAMES
+
+
+def git_paths(root: Path) -> list[Path] | None:
+    """List tracked and unignored files when root is a Git work tree's top level."""
+    def git(*args: str) -> bytes:
+        return subprocess.run(["git", "-C", str(root), *args],
+                              capture_output=True, check=True).stdout
+    try:
+        top = Path(os.fsdecode(git("rev-parse", "--show-toplevel")).strip()).resolve()
+        if top != root:
+            return None
+        listed = git("ls-files", "-z", "--cached", "--others", "--exclude-standard")
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    paths = set()
+    for raw in listed.split(b"\0"):
+        relative = Path(os.fsdecode(raw)) if raw else None
+        if relative is None or any(part in SKIP_DIRS for part in relative.parts[:-1]):
+            continue
+        path = root / relative
+        if (path.is_symlink() or path.is_file()) and is_text(path):
+            paths.add(path)
+    return sorted(paths)
+
+
+def paths_under(root: Path) -> tuple[list[Path], str]:
+    """Return supported text files while excluding private/generated trees.
+
+    A Git checkout uses its file list, so ignored build output is never checked.
+    Other roots, such as test fixtures, fall back to walking the directory tree.
+    """
+    listed = git_paths(root)
+    if listed is not None:
+        return listed, "git file list"
     paths = []
     for directory, names, filenames in os.walk(root, followlinks=False):
         names[:] = sorted(n for n in names if n not in SKIP_DIRS)
         for name in sorted(filenames):
             path = Path(directory) / name
-            if path.suffix in TEXT_SUFFIXES or name in TEXT_NAMES:
+            if is_text(path):
                 paths.append(path)
-    return paths
+    return paths, "directory walk"
 
 
 def markdown_body(text: str, label: str, errors: list[str]) -> str:
@@ -118,11 +172,150 @@ def destinations(body: str, label: str, errors: list[str]) -> list[str]:
     return links
 
 
-def check(root: Path, initialized: bool) -> tuple[list[str], int, int]:
-    """Validate text, links, discovery, indexes, and matching roadmap status."""
+def link_targets(root: Path, name: str, text: str) -> list[str]:
+    """Resolve existing relative inline links in text to repository file names."""
+    targets = []
+    for match in INLINE_LINK.finditer(re.sub(r"(`+).*?\1", "", text)):
+        try:
+            parts = urlsplit(match[1].strip("<>"))
+        except ValueError:
+            continue
+        if parts.scheme or parts.netloc or not parts.path or parts.path.startswith("/"):
+            continue
+        target = ((root / name).parent / unquote(parts.path)).resolve()
+        if not target.is_relative_to(root) or not target.exists():
+            continue
+        if target.is_dir() and (target / "README.md").is_file():
+            target = target / "README.md"
+        targets.append(target.relative_to(root).as_posix())
+    return targets
+
+
+def section(body: str, prefix: str) -> str:
+    """Return the text of the level-two section whose heading starts with prefix."""
+    lines = body.splitlines()
+    start = next((i for i, line in enumerate(lines) if line.startswith(prefix)), None)
+    if start is None:
+        return ""
+    end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")),
+               len(lines))
+    return "\n".join(lines[start + 1:end])
+
+
+def table_rows(text: str) -> list[str]:
+    """Return table body rows, skipping each table's header and separator."""
+    rows, position = [], 0
+    for line in text.splitlines():
+        if line.lstrip().startswith("|"):
+            position += 1
+            if position > 2:
+                rows.append(line)
+        else:
+            position = 0
+    return rows
+
+
+def first_cell(row: str) -> str:
+    """Return a table row's first cell text."""
+    return row.strip().strip("|").split("|")[0].strip()
+
+
+def governing_paragraph(body: str) -> str:
+    """Return the paragraph starting with 'Governed by:', or an empty string."""
+    lines = body.splitlines()
+    start = next((i for i, line in enumerate(lines) if line.startswith("Governed by:")), None)
+    if start is None:
+        return ""
+    end = next((i for i in range(start, len(lines)) if not lines[i].strip()), len(lines))
+    return "\n".join(lines[start:end])
+
+
+def component_registry(root: Path, bodies: dict[str, str],
+                       errors: list[str]) -> dict[str, str | None]:
+    """Map building-block component identifiers to their module README, if any."""
+    architecture = "docs/arc42/README.md"
+    registry: dict[str, str | None] = {}
+    for row in table_rows(section(bodies.get(architecture, ""), "## 5. ")):
+        cell = first_cell(row)
+        identifier = re.search(r"`([^`]+)`", cell)
+        component = identifier[1] if identifier else re.sub(r"[*_\[\]]", "", cell).strip()
+        if not component:
+            continue
+        if component in registry:
+            errors.append(f"{architecture}: duplicate building-block component '{component}'")
+        readmes = [t for t in link_targets(root, architecture, row)
+                   if t.endswith("README.md")]
+        readme = readmes[0] if readmes else None
+        if len(readmes) > 1:
+            errors.append(f"{architecture}: component '{component}' links several READMEs")
+        if readme is not None and (readme == "README.md" or readme.startswith("docs/")):
+            errors.append(f"{architecture}: module README for '{component}' must live in "
+                          f"the module's directory, not {readme}")
+            readme = None
+        registry[component] = readme
+    return registry
+
+
+def check_modules(root: Path, bodies: dict[str, str], edges: dict[str, set[str]],
+                  errors: list[str]) -> None:
+    """Check module READMEs and module docs against their global sources."""
+    registry = component_registry(root, bodies, errors)
+    for component, readme in registry.items():
+        if readme is None or readme not in bodies:
+            continue
+        headings = set(re.findall(r"^## (.+?)\s*$", bodies[readme], re.MULTILINE))
+        prefix = f"{Path(readme).parent.as_posix()}/docs/"
+        module_docs = sorted(name for name in bodies if name.startswith(prefix))
+        required = MODULE_SECTIONS + (("Module docs",) if module_docs else ())
+        for heading in required:
+            if heading not in headings:
+                errors.append(f"{readme}: module README missing section '## {heading}'")
+        for target in MODULE_GLOBAL_LINKS:
+            if target not in edges[readme]:
+                errors.append(f"{readme}: module README must link {target}")
+        for name in module_docs:
+            if name not in edges[readme]:
+                errors.append(f"{name}: module doc not linked from {readme}")
+            governing = link_targets(root, name, governing_paragraph(bodies[name]))
+            expected = GOVERNING_SOURCES.get(Path(name).name)
+            if not any(target.startswith("docs/") for target in governing):
+                errors.append(f"{name}: module doc needs a 'Governed by:' line linking "
+                              "its global source under docs/")
+            elif expected and expected not in governing:
+                errors.append(f"{name}: 'Governed by:' must link {expected}")
+            if Path(name).name == "plan.md":
+                for row in table_rows(bodies[name]):
+                    if not any(STEP_DOCUMENT.match(t) for t in link_targets(root, name, row)):
+                        errors.append(f"{name}: plan row must link a roadmap step: "
+                                      f"{first_cell(row)}")
+
+    for name in sorted(bodies):
+        if not re.fullmatch(r"docs/arc42/decisions/AD-[0-9]+-[^/]+\.md", name):
+            continue
+        field = COMPONENT_FIELD.search(bodies[name])
+        if field is None:
+            errors.append(f"{name}: missing '- Affected components:' field")
+            continue
+        value = field[1].strip()
+        if value.lower() in COMPONENT_VALUES:
+            continue
+        components = re.findall(r"`([^`]+)`", value) or [
+            part.strip() for part in value.split(",") if part.strip()]
+        for component in components:
+            if component not in registry:
+                errors.append(f"{name}: unknown component '{component}' "
+                              "(not in the building-block view)")
+            elif registry[component] and name not in edges.get(registry[component], set()):
+                errors.append(f"{registry[component]}: module README must link {name} "
+                              f"(it affects '{component}')")
+
+
+def check(root: Path, initialized: bool) -> tuple[list[str], int, int, str]:
+    """Validate text, links, discovery, indexes, modules, and roadmap status."""
     errors: list[str] = []
     texts: dict[str, str] = {}
-    for path in paths_under(root):
+    paths, source = paths_under(root)
+    for path in paths:
         label = path.relative_to(root).as_posix()
         if path.is_symlink():
             errors.append(f"{label}: text-file symlinks are not supported")
@@ -208,6 +401,8 @@ def check(root: Path, initialized: bool) -> tuple[list[str], int, int]:
             if name not in edges.get(index, set()):
                 errors.append(f"{name}: missing direct link from {index}")
 
+    check_modules(root, bodies, edges, errors)
+
     architecture = bodies.get("docs/arc42/README.md", "")
     sections = re.findall(r"^## (\d+)\. ", architecture, re.MULTILINE)
     if sections != [str(i) for i in range(1, 13)]:
@@ -243,7 +438,7 @@ def check(root: Path, initialized: bool) -> tuple[list[str], int, int]:
         for name in PROJECT_FIELDS:
             if "TBD(project)" in texts.get(name, ""):
                 errors.append(f"{name}: unresolved TBD(project) initialization field")
-    return errors, len(bodies), relative_count
+    return errors, len(bodies), relative_count, source
 
 
 def main() -> int:
@@ -255,14 +450,15 @@ def main() -> int:
     root = args.root.resolve()
     if not root.is_dir():
         parser.error(f"repository root is not a directory: {root}")
-    errors, documents, links = check(root, args.initialized)
+    errors, documents, links, source = check(root, args.initialized)
     if errors:
         for error in errors:
             print(f"ERROR: {error}", file=sys.stderr)
         print(f"FAIL: {len(errors)} structural issue(s)", file=sys.stderr)
         return 1
     mode = "initialized" if args.initialized else "template"
-    print(f"PASS: {documents} Markdown files, {links} relative links, {mode} mode")
+    print(f"PASS: {documents} Markdown files, {links} relative links, {mode} mode, "
+          f"{source}")
     return 0
 
 

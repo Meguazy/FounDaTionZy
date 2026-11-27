@@ -14,6 +14,7 @@ detail. [Provenance](provenance.md) explains the source inspection and differenc
 | Twelve arc42 sections | Covers runtime, deployment, quality, and risks as well as components. | Scale content to the project; explain inapplicable sections. |
 | Indexed ADRs | Preserves alternatives, rationale, and consequences for future maintainers. | Record consequential choices; avoid an ADR for every local variable. |
 | Stable identifiers | Evidence and historical decisions keep their meaning after scheduling changes. | Never renumber old steps or reuse a superseded decision's ID. |
+| Module docs subordinate to global records | An agent working in one module finds its knowledge beside the code and reaches every governing decision through checked links. | No local schedule, register or acceptance; create a module's `docs/` only when its README is not enough. |
 | Current summaries with linked historical records | Readers can locate current facts without replaying a work diary. | Preserve failures, source identities, binding decisions and stable references when extracting detail. |
 | English technical documents | Keeps contracts, code, and architecture readable across tools and collaborators. | Owner discussion and application UI languages are separate decisions. |
 

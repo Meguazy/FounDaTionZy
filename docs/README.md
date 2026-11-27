@@ -38,6 +38,7 @@ maintenance scope; do not activate a step merely to perform that work.
 | --- | --- |
 | Initialization or adoption | Reconstruct the full baseline: product requirements, journeys and glossary; roadmap and step records; all twelve arc42 views and relevant ADRs; ODs and [workflow contracts](workflows/README.md); relevant [experiments](experiments/README.md), [development](development.md) and [operations](operations/README.md). Follow [bootstrap](guides/bootstrap.md) or [adoption](guides/adoption.md), inspecting existing code and evidence where present. |
 | Bounded change or continuation | Read the requirements, architecture sections, contracts, decisions, code, tests and check commands involved in the requested outcome. Use the step's `Required context` map and any matching handoff from its [index](handoffs/README.md). On continuation, verify the checkpoint and sources against the checkout using the [resume checks](guides/agent-workflow.md#resume-from-a-handoff). |
+| Module-scoped change | Extend the bounded path with the module README, the module docs the change touches, the step's references for the module, and the ADRs and ODs that list the component. Follow [module documentation](guides/module-docs.md). A change to the module's public API, owned data or dependency rules is also a cross-cutting change. |
 | Cross-cutting change | Extend the bounded path through affected callers, dependencies, shared invariants, lifecycle and authority boundaries. Include relevant quality scenarios, evaluations, deployment and recovery procedures. |
 | Step start or closure | Read [sequencing/done rules](roadmap/sequencing-and-done.md), prerequisites and all criteria for that boundary. Audit the entire OD register and ADR index for every unresolved OD or proposed ADR due there, including deferred items; read their records and the required evidence. A context map cannot limit this audit. |
 
@@ -74,6 +75,7 @@ recommended paths for new projects, existing repositories, and ongoing work.
 - [Agent workflow](guides/agent-workflow.md): sessions, scoped work, review, and handoff.
 - [Current state and history](guides/current-state-and-history.md): concise canonical facts, linked records and safe reorganization.
 - [Adoption](guides/adoption.md): reconcile an existing repository.
+- [Module documentation](guides/module-docs.md): module READMEs and module docs linked to global decisions.
 - [Provenance](guides/provenance.md): source inspections and extraction decisions.
 - [Reusable record templates](templates/README.md).
 
@@ -93,6 +95,7 @@ recommended paths for new projects, existing repositories, and ongoing work.
 | Development | Commands and check boundaries verified against the checkout. |
 | Operations | Runtime, failure recovery, backup, upgrade, and rollback procedures. |
 | Handoff index and records | Current continuation pointer per scope and source/worktree checkpoints; link canonical facts and evidence. |
+| Module README and module docs | A module's purpose, public API, dependencies, owned data, local invariants, per-step breakdown and internal detail. Subordinate to the global sources they link; they own no requirement, decision, status or acceptance. |
 
 Link canonical facts rather than maintaining authoritative copies. When a change
 affects several views, update them together.

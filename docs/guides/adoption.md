@@ -47,6 +47,11 @@ checkpoints or past checks for sessions that were never recorded.
 Use arc42 to explain the actual system and clearly label desired changes.
 Document current dependencies and data authority before proposing new modules.
 
+Existing per-module documentation becomes module documentation. Keep internal
+detail beside the code, move requirements, decisions, schedules and status to
+their global homes, and add the links described in
+[module documentation](module-docs.md).
+
 An ADR written after implementation should state that it is retrospective,
 identify the evidence/source, and distinguish an observed choice from owner
 acceptance. Do not backdate approvals or present an inferred rationale as the

@@ -40,8 +40,13 @@ interfaces, dependencies, data ownership, runtime interactions, deployment
 location, and quality/security considerations. Keep cohesive boundaries and
 explicit dependency direction.
 
-| Component | Responsibility / interface | Dependencies / data owner | Current vs target |
-| --- | --- | --- | --- |
+Put each component's stable identifier in backticks in the first column; ADRs
+and the OD register refer to it. Once a component has its own directory, link
+its README under `Module docs`, following
+[module documentation](../guides/module-docs.md).
+
+| Component | Responsibility / interface | Dependencies / data owner | Module docs | Current vs target |
+| --- | --- | --- | --- | --- |
 
 ## 6. Runtime view
 
@@ -62,7 +67,8 @@ installer exists before it is implemented and checked.
 TBD(project): Cover validation, identity, permissions, configuration, structured
 logging/correlation, privacy, error handling, versioning, persistence/migrations,
 testing, and observability where relevant. Define shared concepts without
-duplicating component-specific details.
+duplicating component-specific details; those belong in the module's
+documentation, linked from section 5.
 
 ## 9. Architecture decisions
 

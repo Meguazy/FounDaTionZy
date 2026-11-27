@@ -11,6 +11,8 @@ acceptance or results.
 - [Experiment](../experiments/experiment-template.md)
 - [Workflow contract](../workflows/workflow-template.md)
 - [Operations runbook](../operations/runbook-template.md)
+- [Module README](module-readme-template.md)
+- [Module docs](module-docs-template.md)
 
 Store completed records beside the concern they describe and link them from
 the relevant index, following [current state and history](../guides/current-state-and-history.md).
