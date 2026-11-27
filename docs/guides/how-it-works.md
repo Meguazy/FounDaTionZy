@@ -43,6 +43,7 @@ not replace it with shorter, incompatible versions.
 | How do developers run checks? | Development guide | Commands describe the current checkout. |
 | How do operators run and recover it? | Operations runbooks | Runtime procedures have different risks and users. |
 | How must agents behave here? | AGENTS.md | Short instructions direct agents to the durable knowledge. |
+| What does this module do, and what constrains it? | Module README and module docs | Module knowledge stays beside the code and links the global decisions that govern it. |
 
 This is a division of responsibility, not a demand to repeat everything twelve
 times. An ADR links to the relevant quality scenario; a step links to the ADR

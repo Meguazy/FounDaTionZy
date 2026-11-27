@@ -93,6 +93,7 @@ acceptance each establish different facts.
 | `docs/open-decisions.md` | Questions with owners and explicit decision deadlines. |
 | `docs/handoffs/` | Indexed continuation checkpoints, pending work and evidence applicability. |
 | Experiments, workflow, development, and operations templates | Separate uncertain feasibility, behavioral contracts, developer commands, and runtime procedures. |
+| Module README and module docs templates | Keep each module's knowledge beside its code, linked to the global decisions that govern it. |
 | PR template, formatting defaults, and documentation CI | Reviewable changes and repeatable structural checks. |
 
 Run the included checks with Python 3.11 or newer:
@@ -103,7 +104,7 @@ git diff --check
 ```
 
 These check documentation structure, relative links, anchors, fences, indexes,
-and roadmap consistency. They do not prove application correctness or install
+roadmap consistency, and the links between module docs and global decisions. They do not prove application correctness or install
 branch protection. See [development](docs/development.md).
 
 FounDaTionZy is released under the [MIT License](LICENSE). Keep its notice with

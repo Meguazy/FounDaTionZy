@@ -25,6 +25,8 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Test documentation checker
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Check documentation
         run: python3 scripts/check_docs.py
       - name: Check committed whitespace

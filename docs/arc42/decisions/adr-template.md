@@ -7,6 +7,7 @@
 - Decide by: unset
 - Related requirements / quality scenarios: unset
 - Related ODs / experiments / step: unset
+- Affected components: unset
 - Supersedes / superseded by: none
 
 ## Context and forces

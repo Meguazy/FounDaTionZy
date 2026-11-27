@@ -55,6 +55,9 @@ python3 scripts/check_docs.py
 git diff --check
 ```
 
+When the change touches the checker, also run
+`python3 -m unittest discover -s scripts -p 'test_*.py'`.
+
 Application-specific commands are added to [development](docs/development.md)
 only after the chosen scaffold exists and the commands have been verified.
 A structural check is not an application test or owner acceptance.

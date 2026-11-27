@@ -15,6 +15,8 @@ code/tests, and development or operations gates. Use section links and stable
 IDs, and explain each dependency. For a large step, group references by increment.
 For a compound invariant, identify its trigger and link all clauses governing
 preserved/invalidated state and effects; avoid broad topic labels alone.
+When the step touches registered modules, link each module's README and plan,
+and group references by module where that helps a continuation.
 
 | Concern / increment | Canonical source / section / IDs | Why needed |
 | --- | --- | --- |
@@ -36,6 +38,8 @@ blocking items with the owner and record answers before beginning.
 ## Deliverables
 
 Describe a bounded vertical slice across the components required by the outcome.
+Name each module's share; when a module has a plan, its rows for this step must
+match.
 
 ## Non-goals
 

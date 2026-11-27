@@ -64,6 +64,7 @@ Update the documents that own changed facts:
 | --- | --- |
 | User behavior or business rule | Product baseline, journeys, acceptance criteria, active step. |
 | Component/interface/data ownership | arc42, relevant ADRs, developer guidance. |
+| Module internals or local rules | Module README and module docs; the building-block row and ADRs when the change crosses the module. |
 | Lifecycle or transition semantics | Behavioral contract, runtime view, conformance checks, journeys. |
 | Runtime process/configuration | Deployment view, development, operations, recovery/rollback. |
 | Model/prompt/tool behavior | Evaluation plan, experiment result, promotion decision. |

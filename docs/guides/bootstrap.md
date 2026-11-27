@@ -82,6 +82,11 @@ rationale, consequences, decision status, owner/acceptance evidence when known,
 implementation status, and `Decide by` when proposed. Add every ADR to its
 index. Do not invent an acceptance date because a recommendation looks obvious.
 
+Give each building block a stable identifier and name the affected components
+in every ADR. Module READMEs are written when a module's directory exists,
+usually in the scaffold step; until then its row has no module link. See
+[module documentation](module-docs.md).
+
 If feasibility is uncertain, create an experiment with reproducible inputs and
 a pass/fail criterion. Record cost/credential/fixture authorization where the
 experiment needs it. Preparing a probe does not mean running it was authorized.

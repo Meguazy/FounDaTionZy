@@ -12,6 +12,12 @@ python3 scripts/check_docs.py
 git diff --check
 ```
 
+After changing the checker, run its behavior tests:
+
+```sh
+python3 -m unittest discover -s scripts -p 'test_*.py'
+```
+
 After initializing a derivative application's concrete baseline:
 
 ```sh
@@ -25,6 +31,10 @@ does not decide whether the owner accepted the result.
 
 ## What the checker covers
 
+- Files from Git's list of tracked and unignored untracked files when the root
+  is a Git checkout, so ignored build output is never checked; other roots, such
+  as test fixtures, are walked with a built-in skip list. The result line names
+  the source used.
 - Required baseline files and UTF-8 text hygiene: final newline, LF endings,
   and trailing whitespace in supported text files.
 - Closed Markdown fences.
@@ -35,6 +45,11 @@ does not decide whether the owner accepted the result.
 - Roadmap rows linked to step documents, matching status, valid step statuses,
   and at most one selected active/blocked step.
 - Twelve numbered arc42 sections.
+- [Module documentation](guides/module-docs.md#what-the-checker-enforces):
+  required README sections and global links for modules registered in the
+  building-block view, ADR `Affected components` fields and the matching README
+  links, `Governed by:` links in module docs, and roadmap-step links in module
+  plans.
 - Unresolved project-field markers in initialized mode.
 
 It supports this repository's Markdown conventions, not every extension of

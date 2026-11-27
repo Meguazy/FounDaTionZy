@@ -7,8 +7,13 @@ they are not evidence that an application technology has been selected.
 Copy [the ADR template](adr-template.md) to `AD-NNN-topic.md`, using the next
 unused identifier, and add it below. Preserve identifiers across supersession.
 
-| ID / record | Decision | Decision status | Decide by | Implementation / evidence |
-| --- | --- | --- | --- | --- |
+| ID / record | Decision | Components | Decision status | Decide by | Implementation / evidence |
+| --- | --- | --- | --- | --- | --- |
+
+Every record names its `Affected components` with identifiers from the
+[building-block view](../README.md#5-building-block-view), or `cross-cutting`
+or `none`. Each affected module's README links the record, so an agent working
+in that module reaches it; see [module documentation](../../guides/module-docs.md).
 
 A proposed ADR must have an owner and `Decide by` boundary matching its affected
 roadmap step or another explicit gate. At the boundary, resolve it or record an
